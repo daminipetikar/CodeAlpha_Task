@@ -1,2 +1,2 @@
 # CodeAlpha_Task
-🔢 A responsive Scientific Calculator Web App built using HTML, CSS, and JavaScript for my CodeAlpha Internship.
+🚀 CodeAlpha Internship Task – Web development project showcasing responsive design, interactivity, and clean UI using HTML, CSS, and JavaScript.
