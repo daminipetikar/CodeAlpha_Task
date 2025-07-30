@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Damini's Music App</title>
+  <link rel="stylesheet" href="music.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #121212;
+      color: #fff;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      font-size: 2.2rem;
+      color: #1DB954;
+      text-shadow: 2px 2px 8px #000;
+      letter-spacing: 2px;
+      border-bottom: 2px solid #1DB954;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .song-card {
+      background: #181818;
+      padding: 10px;
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .song-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #1DB95488;
+    }
+    .song-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .controls {
+      text-align: center;
+      margin-top: 20px;
+    }
+    #nowPlaying {
+      text-align: center;
+      margin: 15px 0;
+    }
+    input[type=range] {
+      width: 150px;
+    }
+    .footer-controls {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #000;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-top: 2px solid #1DB954;
+    }
+    .dark-mode {
+      background-color: #fff;
+      color: #000;
+    }
+    .dark-mode .footer-controls {
+      background-color: #eee;
+      border-color: #ccc;
+    }
+    .dark-mode header {
+      color: #000;
+      border-color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <header>🎵 Damini's Music App 🎶</header>
+
+  <div class="grid-container" id="musicGrid">
+    <!-- Music cards added dynamically -->
+  </div>
+
+  <div id="nowPlaying">
+    <h3 id="currentTitle">Select a song</h3>
+    <p id="currentArtist"></p>
+  </div>
+
+  <div class="footer-controls">
+    <button onclick="prevSong()">⏮️</button>
+    <button onclick="togglePlay()" id="playPauseBtn">▶️</button>
+    <button onclick="nextSong()">⏭️</button>
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" />
+    <button onclick="toggleDarkMode()">🌗</button>
+  </div>
+
+  <audio id="audioPlayer" onended="nextSong()"></audio>
+
+  <script>
+    const songs = [
+      {
+        title: "Apna Bana Le",
+        artist: "Arijit Singh",
+        src: "Songs/apna-bana-le.mp3",
+        cover: "images/apna-bana-le.jpg"
+      },
+      {
+        title: "Dil Diyan Gallan",
+        artist: "Atif Aslam",
+        src: "Songs/dil-diyan-gallan.mp3",
+        cover: "images/dil-diyan-gallan.jpg"
+      },
+      {
+        title: "Kesariya",
+        artist: "Arijit Singh",
+        src: "Songs/kesariya.mp3",
+        cover: "images/kesariya.jpg"
+      },
+      {
+        title: "Raabta",
+        artist: "Arijit Singh",
+        src: "Songs/raabta.mp3",
+        cover: "images/raabta.jpg"
+      },
+      {
+        title: "Shayad",
+        artist: "Arijit Singh",
+        src: "Songs/shayad.mp3",
+        cover: "images/shayad.jpg"
+      },
+      {
+        title: "Tera Ban Jaunga",
+        artist: "Akhil Sachdeva",
+        src: "Songs/tera-ban-jaunga.mp3",
+        cover: "images/tera-ban-jaunga.jpg"
+      },
+      {
+        title: "Tera Yaar Hoon Main",
+        artist: "Arijit Singh",
+        src: "Songs/tera-yaar.mp3",
+        cover: "images/tera-yaar.jpg"
+      },
+      {
+        title: "Tujhe Kitna Chahne Lage",
+        artist: "Arijit Singh",
+        src: "Songs/tujhe-kitna.mp3",
+        cover: "images/tujhe-kitna.jpg"
+      },
+      {
+        title: "Tum Mile",
+        artist: "Pritam",
+        src: "Songs/tum-mile.mp3",
+        cover: "images/tum-mile.jpg"
+      },
+      {
+        title: "Vaaste",
+        artist: "Dhvani Bhanushali",
+        src: "Songs/vaaste.mp3",
+        cover: "images/vaaste.jpg"
+      }
+    ];
+
+    const grid = document.getElementById("musicGrid");
+    const audio = document.getElementById("audioPlayer");
+    const title = document.getElementById("currentTitle");
+    const artist = document.getElementById("currentArtist");
+    const volumeSlider = document.getElementById("volumeSlider");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    let currentSong = 0;
+
+    songs.forEach((song, index) => {
+      const card = document.createElement("div");
+      card.classList.add("song-card");
+      card.innerHTML = `
+        <img src="${song.cover}" alt="${song.title}">
+        <h4>${song.title}</h4>
+        <p>${song.artist}</p>
+        <button onclick="playSong(${index})">Play ▶️</button>
+      `;
+      grid.appendChild(card);
+    });
+
+    function playSong(index) {
+      currentSong = index;
+      const song = songs[index];
+      audio.src = song.src;
+      title.textContent = song.title;
+      artist.textContent = song.artist;
+      audio.play();
+      playPauseBtn.textContent = "⏸️";
+    }
+
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.textContent = "⏸️";
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = "▶️";
+      }
+    }
+
+    function nextSong() {
+      currentSong = (currentSong + 1) % songs.length;
+      playSong(currentSong);
+    }
+
+    function prevSong() {
+      currentSong = (currentSong - 1 + songs.length) % songs.length;
+      playSong(currentSong);
+    }
+
+    volumeSlider.addEventListener("input", () => {
+      audio.volume = volumeSlider.value;
+    });
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+  </script>
+
+</body>
+</html>
