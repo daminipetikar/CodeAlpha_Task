@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wonders of the World Gallery</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <h2>🌍 Wonders Gallery</h2>
+    <ul>
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><button onclick="toggleMode()">🌗</button></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Explore Wonders of the World</h1>
+    <p>Natural and man-made marvels through a visual journey</p>
+  </header>
+
+  <main class="albums">
+    <!-- Album: Ancient Wonders -->
+    <section class="album">
+      <h2 onclick="toggleAlbum(this)">🗿 Ancient Wonders</h2>
+      <div class="album-images">
+        <img src="images/ancient/pyramid.jpg" alt="Great Pyramid of Giza" onclick="openLightbox(this)" />
+        <img src="images/ancient/Hanging Gardens of Babylon.jpg" alt="Hanging Gardens of Babylon" onclick="openLightbox(this)" />
+        <img src="images/ancient/Colossus of Rhodes.jpeg" alt="Colossus of Rhodes" onclick="openLightbox(this)" />
+      </div>
+    </section>
+
+    <!-- Album: Modern Wonders -->
+    <section class="album">
+      <h2 onclick="toggleAlbum(this)">🏛️ Modern Wonders</h2>
+      <div class="album-images">
+        <img src="images/modern/Taj Mahal.jpeg" alt="Taj Mahal" onclick="openLightbox(this)" />
+        <img src="images/modern/Machu Picchu.jpg" alt="Machu Picchu" onclick="openLightbox(this)" />
+        <img src="images/modern/Petra.jpg" alt="Petra" onclick="openLightbox(this)" />
+      </div>
+    </section>
+
+    <!-- Album: Natural Wonders -->
+    <section class="album">
+      <h2 onclick="toggleAlbum(this)">🏞️ Natural Wonders</h2>
+      <div class="album-images">
+        <img src="images/natural/Grand Canyon.avif" alt="Grand Canyon" onclick="openLightbox(this)" />
+        <img src="images/natural/Great Barrier Reef.jpg" alt="Great Barrier Reef" onclick="openLightbox(this)" />
+        <img src="images/natural/Aurora Borealis.jpeg" alt="Aurora Borealis" onclick="openLightbox(this)" />
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+    <div class="caption" id="lightbox-caption"></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Wonders Gallery | Made by _daminii_15_</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+/* ===== style.css for Wonders Gallery ===== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+body.light {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e293b;
+  padding: 15px 30px;
+}
+
+.navbar h2 {
+  color: #38bdf8;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.navbar a, .navbar button {
+  color: #f8fafc;
+  text-decoration: none;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover, .navbar button:hover {
+  color: #38bdf8;
+}
+
+.navbar a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* ===== Header ===== */
+header {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #1e293b;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: #38bdf8;
+}
+
+header p {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: #cbd5e1;
+}
+
+body.light header {
+  background-color: #e2e8f0;
+}
+
+body.light header h1 {
+  color: #0ea5e9;
+}
+
+body.light header p {
+  color: #475569;
+}
+
+/* ===== Albums Gallery ===== */
+.albums {
+  padding: 30px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.album {
+  margin-bottom: 40px;
+}
+
+.album h2 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: #38bdf8;
+  cursor: pointer;
+}
+
+.album-images {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.album-images img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.album-images img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Lightbox Modal ===== */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.95);
+}
+
+.lightbox-content {
+  margin: auto;
+  display: block;
+  max-width: 80%;
+  max-height: 80vh;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.caption {
+  text-align: center;
+  color: #f8fafc;
+  padding: 10px;
+}
+
+/* ===== About Page ===== */
+.about-main {
+  padding: 3rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.about-block {
+  background-color: #1e293b;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-left: 6px solid #38bdf8;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease;
+}
+
+.about-block h2 {
+  color: #38bdf8;
+  margin-bottom: 0.8rem;
+}
+
+.about-block p,
+.about-block ul {
+  font-size: 1rem;
+  color: #cbd5e1;
+}
+
+.about-block ul {
+  padding-left: 1.2rem;
+  list-style-type: '🔹 ';
+}
+
+.about-block ul li {
+  margin-bottom: 0.6rem;
+}
+
+body.light .about-block {
+  background-color: #f1f5f9;
+  color: #1e293b;
+  border-color: #0ea5e9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+body.light .about-block h2 {
+  color: #0ea5e9;
+}
+
+body.light .about-block p,
+body.light .about-block ul {
+  color: #1e293b;
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  background-color: #1e293b;
+  color: #f8fafc;
+  padding: 1rem;
+}
+
+body.light footer {
+  background-color: #cbd5e1;
+  color: #1e293b;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .album-images img {
+    width: 90%;
+    height: auto;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .about-main {
+    padding: 2rem 1rem;
+  }
+}
